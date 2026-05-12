@@ -13,7 +13,6 @@ export default function HomePage() {
 
   useEffect(() => {
     const key = "warehouse-home-loaded";
-    // Only show skeleton on the first home visit per session
     if (typeof window !== "undefined" && sessionStorage.getItem(key)) {
       setLoaded(true);
       return;
@@ -28,7 +27,7 @@ export default function HomePage() {
   const loading = !loaded;
 
   return (
-    <div className="px-10 py-8 max-w-6xl">
+    <div className="px-4 sm:px-6 lg:px-10 py-6 lg:py-8 w-full">
       <div className="flex items-center gap-2 text-sm font-sans text-neutral-500">
         Current Balance <span className="text-neutral-300">ⓘ</span>
       </div>
@@ -36,10 +35,10 @@ export default function HomePage() {
       {loading ? (
         <Skel w={280} h={42} className="mt-3" />
       ) : (
-        <div className="font-mono text-4xl mt-2">$40,902.78</div>
+        <div className="font-mono text-3xl sm:text-4xl mt-2">$40,902.78</div>
       )}
 
-      <div className="mt-8 grid grid-cols-4 gap-4">
+      <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {loading
           ? Array.from({ length: 4 }).map((_, i) => (
               <div key={i} className="border border-neutral-200 p-5">
@@ -58,7 +57,7 @@ export default function HomePage() {
           )}
       </div>
 
-      <div className="mt-12 flex items-center justify-between">
+      <div className="mt-10 lg:mt-12 flex items-center justify-between">
         <div className="text-xs font-sans text-neutral-400 tracking-widest uppercase">
           Transaction History
         </div>

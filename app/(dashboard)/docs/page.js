@@ -58,7 +58,7 @@ export default function DocsPage() {
   const [view, setView] = useState("grid"); // 'grid' | 'list'
 
   return (
-    <div className="px-10 py-6 max-w-7xl">
+    <div className="px-4 sm:px-6 lg:px-10 py-6 w-full">
       <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
         <div className="flex items-center gap-1">
           <button className="font-sans text-sm pb-2 -mb-3 border-b-2 border-black px-1">
@@ -88,7 +88,7 @@ export default function DocsPage() {
       </div>
 
       {view === "grid" ? (
-        <div className="mt-6 grid grid-cols-4 gap-4">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
           {DOCS.map((d) => (
             <DocCard key={d.id} doc={d} />
           ))}

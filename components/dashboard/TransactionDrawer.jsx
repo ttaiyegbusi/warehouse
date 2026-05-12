@@ -35,7 +35,7 @@ export default function TransactionDrawer({ txn, onClose }) {
         style={closing ? { opacity: 0, transition: "opacity 250ms ease" } : {}}
       />
       <div
-        className={`w-[420px] bg-white border-l border-neutral-200 flex flex-col ${
+        className={`w-full sm:w-[420px] bg-white sm:border-l border-neutral-200 flex flex-col ${
           closing ? "drawer-exit" : "drawer-enter"
         }`}
       >

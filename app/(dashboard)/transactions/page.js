@@ -10,22 +10,22 @@ export default function TransactionsPage() {
   const { setActiveTxn } = useUser();
 
   return (
-    <div className="px-10 py-8 max-w-6xl">
+    <div className="px-4 sm:px-6 lg:px-10 py-6 lg:py-8 w-full">
       <div className="text-sm font-sans text-neutral-500">Overview</div>
 
-      <div className="mt-4 grid grid-cols-4 gap-4">
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <KPI amount="$4,759.67" label="Paid" />
         <KPI amount="$2,943.01" label="Unpaid" />
         <KPI amount="$4,000" label="Paid" />
         <KPI amount="$4,000" label="Paid" />
       </div>
 
-      <div className="mt-10">
+      <div className="mt-8 lg:mt-10">
         <div className="inline-block border border-neutral-300 px-3 py-1.5 font-sans text-sm">
           Revenue ▾
         </div>
-        <div className="font-mono text-4xl mt-4">$40,902.78</div>
-        <div className="flex items-center justify-between mt-1">
+        <div className="font-mono text-3xl sm:text-4xl mt-4">$40,902.78</div>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-1 gap-2">
           <div className="text-xs font-mono text-neutral-500">
             vs $30,847.12 last period <span className="text-neutral-300">ⓘ</span>
           </div>
@@ -39,12 +39,14 @@ export default function TransactionsPage() {
           </div>
         </div>
 
-        <div className="mt-6">
-          <RevenueChart />
+        <div className="mt-6 overflow-x-auto">
+          <div className="min-w-[600px]">
+            <RevenueChart />
+          </div>
         </div>
       </div>
 
-      <div className="mt-12 flex items-center justify-between">
+      <div className="mt-10 lg:mt-12 flex items-center justify-between">
         <div className="text-xs font-sans text-neutral-400 tracking-widest uppercase">
           Transaction History
         </div>
