@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-plex-sans: 'IBM Plex Sans';
+  --font-plex-mono: 'IBM Plex Mono';
+}
+
+html, body {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  background: #ffffff;
+}
+
+.font-sans { font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+.font-mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #f1f1f1 0%, #e8e8e8 50%, #f1f1f1 100%);
+  background-size: 1000px 100%;
+  animation: shimmer 1.6s infinite linear;
+  border-radius: 2px;
+}
+
+/* Drawer slide */
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0.4; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideOutRight {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
+}
+.drawer-enter { animation: slideInRight 320ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.drawer-exit  { animation: slideOutRight 260ms cubic-bezier(0.4, 0, 1, 1) both; }
+
+/* Overlay fade */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.fade-in { animation: fadeIn 320ms ease both; }
+
+/* Row hover */
+.row-hover { transition: background-color 140ms ease; }
+.row-hover:hover { background-color: #fafafa; cursor: pointer; }
+
+/* Bar hover */
+.bar-group { transition: opacity 160ms ease; }
+.chart-svg:hover .bar-group { opacity: 0.35; }
+.chart-svg .bar-group.active { opacity: 1; }
+.chart-svg .bar-group:hover { opacity: 1 !important; }
+
+.smooth { transition: all 180ms ease; }
