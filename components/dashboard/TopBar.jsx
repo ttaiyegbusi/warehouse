@@ -30,31 +30,34 @@ export default function TopBar({ onOpenMobileNav }) {
 
   return (
     <>
-      <div className="relative h-14 border-b border-neutral-200 flex items-center gap-2 sm:gap-3 px-4 sm:px-6 bg-white shrink-0">
+      <div className="relative h-14 border-b border-neutral-200 flex items-center px-4 sm:px-6 bg-white shrink-0">
         {/* Mobile hamburger */}
         <button
           onClick={onOpenMobileNav}
-          className="md:hidden w-9 h-9 -ml-2 flex items-center justify-center text-neutral-700 hover:bg-neutral-50 smooth shrink-0"
+          className="md:hidden w-9 h-9 -ml-2 mr-1 flex items-center justify-center text-neutral-700 hover:bg-neutral-50 smooth shrink-0"
           aria-label="Open menu"
         >
           <Menu size={18} strokeWidth={1.5} />
         </button>
 
-        {/* Search trigger — looks like an input, opens modal */}
+        {/* Search — pinned far left */}
         <button
           onClick={() => setSearchOpen(true)}
-          className="flex items-center gap-3 flex-1 min-w-0 max-w-xl text-left h-9 px-1"
+          className="flex items-center gap-3 text-left h-9 shrink-0"
         >
           <Search size={16} strokeWidth={1.5} className="text-neutral-400 shrink-0" />
-          <span className="text-sm flex-1 min-w-0 font-sans text-neutral-400 truncate">
+          <span className="text-sm font-sans text-neutral-400 whitespace-nowrap">
             Find anything…
           </span>
-          <kbd className="hidden md:inline-block font-mono text-[10px] text-neutral-400 border border-neutral-200 px-1.5 py-0.5">
+          <kbd className="hidden sm:inline-block font-mono text-[10px] text-neutral-400 border border-neutral-200 px-1.5 py-0.5">
             ⌘K
           </kbd>
         </button>
 
-        {/* Right cluster — fixed dimensions, never shifts */}
+        {/* Elastic spacer pushes the right cluster to the edge */}
+        <div className="flex-1" />
+
+        {/* Right cluster — pinned far right */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <button
             ref={bellRef}
