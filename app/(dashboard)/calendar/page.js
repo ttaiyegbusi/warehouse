@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight, X, ExternalLink, Copy, Check } from "lucide-react";
 import { CALENDAR_EVENTS } from "@/lib/mockData";
+import { useSkeletonLoad } from "@/lib/useSkeletonLoad";
+import { CalendarSkeleton } from "@/components/dashboard/PageSkeletons";
 
 const DOWS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
@@ -131,6 +133,7 @@ function EventPopover({ event, day, onClose, anchor }) {
 }
 
 export default function CalendarPage() {
+  const loading = useSkeletonLoad();
   const cells = buildGrid();
   const [hoveredDay, setHoveredDay] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -152,6 +155,8 @@ export default function CalendarPage() {
     setHoveredDay(day);
     setAnchorEl(el);
   };
+
+  if (loading) return <CalendarSkeleton />;
 
   return (
     <div className="px-4 sm:px-6 lg:px-10 py-6 lg:py-8 w-full">

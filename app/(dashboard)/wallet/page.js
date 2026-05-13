@@ -15,6 +15,8 @@ import {
   Clock,
 } from "lucide-react";
 import { WALLET_CARDS, LINKED_ACCOUNTS, WALLET_ACTIVITY } from "@/lib/mockData";
+import { useSkeletonLoad } from "@/lib/useSkeletonLoad";
+import { WalletSkeleton } from "@/components/dashboard/PageSkeletons";
 
 /* ----------------------------- Card visual ------------------------------ */
 function PaymentCard({ card, active, onClick, masked }) {
@@ -91,10 +93,13 @@ function AddCard() {
 
 /* -------------------------------- Page ----------------------------------- */
 export default function WalletPage() {
+  const loading = useSkeletonLoad();
   const [activeId, setActiveId] = useState(WALLET_CARDS[0].id);
   const [masked, setMasked]     = useState(true);
 
   const active = WALLET_CARDS.find((c) => c.id === activeId);
+
+  if (loading) return <WalletSkeleton />;
 
   return (
     <div className="px-4 sm:px-6 lg:px-10 py-6 lg:py-8 w-full">

@@ -5,12 +5,15 @@ import { Search, Bell, Menu } from "lucide-react";
 import { useUser } from "@/lib/UserContext";
 import NotificationsPopover from "./NotificationsPopover";
 import SearchModal from "./SearchModal";
+import ProfileMenu from "./ProfileMenu";
 
 export default function TopBar({ onOpenMobileNav }) {
   const { user } = useUser();
-  const [notifOpen, setNotifOpen]   = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const bellRef = useRef(null);
+  const [notifOpen, setNotifOpen]     = useState(false);
+  const [searchOpen, setSearchOpen]   = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const bellRef    = useRef(null);
+  const profileRef = useRef(null);
 
   // Cmd/Ctrl+K to open search globally
   useEffect(() => {
@@ -54,7 +57,7 @@ export default function TopBar({ onOpenMobileNav }) {
           </kbd>
         </button>
 
-        {/* Elastic spacer pushes the right cluster to the edge */}
+        {/* Elastic spacer */}
         <div className="flex-1" />
 
         {/* Right cluster — pinned far right */}
@@ -69,15 +72,26 @@ export default function TopBar({ onOpenMobileNav }) {
           >
             <Bell size={15} strokeWidth={1.5} />
           </button>
-          <div className="px-3 py-1.5 border border-neutral-300 text-sm font-sans whitespace-nowrap">
+          <button
+            ref={profileRef}
+            onClick={() => setProfileOpen((o) => !o)}
+            className={`px-3 py-1.5 border border-neutral-300 text-sm font-sans whitespace-nowrap smooth ${
+              profileOpen ? "bg-neutral-100" : "hover:bg-neutral-50"
+            }`}
+          >
             {displayName}
-          </div>
+          </button>
         </div>
 
         <NotificationsPopover
           open={notifOpen}
           onClose={() => setNotifOpen(false)}
           anchorRef={bellRef}
+        />
+        <ProfileMenu
+          open={profileOpen}
+          onClose={() => setProfileOpen(false)}
+          anchorRef={profileRef}
         />
       </div>
 

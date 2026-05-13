@@ -18,6 +18,8 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { INBOX } from "@/lib/mockData";
+import { useSkeletonLoad } from "@/lib/useSkeletonLoad";
+import { InboxSkeleton } from "@/components/dashboard/PageSkeletons";
 
 /* --- Full-width row (when not composing) --- */
 function InboxRow({ msg }) {
@@ -228,8 +230,11 @@ function ToolBtn({ children }) {
 
 /* --- Page --- */
 export default function InboxPage() {
+  const loading = useSkeletonLoad();
   const [composing, setComposing] = useState(false);
   const [selectedKey, setSelectedKey] = useState(null);
+
+  if (loading) return <InboxSkeleton />;
 
   if (composing) {
     // Flatten messages with stable keys for selection highlighting

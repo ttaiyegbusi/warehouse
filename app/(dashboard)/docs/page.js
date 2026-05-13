@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { LayoutGrid, List, MoreVertical } from "lucide-react";
 import { DOCS } from "@/lib/mockData";
+import { useSkeletonLoad } from "@/lib/useSkeletonLoad";
+import { DocsSkeleton } from "@/components/dashboard/PageSkeletons";
 
 function DocCard({ doc }) {
   return (
@@ -55,7 +57,10 @@ function DocRow({ doc }) {
 }
 
 export default function DocsPage() {
+  const loading = useSkeletonLoad();
   const [view, setView] = useState("grid"); // 'grid' | 'list'
+
+  if (loading) return <DocsSkeleton />;
 
   return (
     <div className="px-4 sm:px-6 lg:px-10 py-6 w-full">

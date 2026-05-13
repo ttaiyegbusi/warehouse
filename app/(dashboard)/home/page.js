@@ -1,30 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { TXN_HISTORY } from "@/lib/mockData";
 import { useUser } from "@/lib/UserContext";
+import { useSkeletonLoad } from "@/lib/useSkeletonLoad";
 import BalanceCard from "@/components/dashboard/BalanceCard";
 import TxnRow from "@/components/dashboard/TxnRow";
-import Skel from "@/components/dashboard/Skel";
+import { HomeSkeleton } from "@/components/dashboard/PageSkeletons";
 
 export default function HomePage() {
   const { setActiveTxn } = useUser();
-  const [loaded, setLoaded] = useState(false);
+  const loading = useSkeletonLoad();
 
-  useEffect(() => {
-    const key = "warehouse-home-loaded";
-    if (typeof window !== "undefined" && sessionStorage.getItem(key)) {
-      setLoaded(true);
-      return;
-    }
-    const t = setTimeout(() => {
-      setLoaded(true);
-      if (typeof window !== "undefined") sessionStorage.setItem(key, "1");
-    }, 1500);
-    return () => clearTimeout(t);
-  }, []);
-
-  const loading = !loaded;
+  if (loading) return <HomeSkeleton />;
 
   return (
     <div className="px-4 sm:px-6 lg:px-10 py-6 lg:py-8 w-full">
@@ -32,29 +19,13 @@ export default function HomePage() {
         Current Balance <span className="text-neutral-300">ⓘ</span>
       </div>
 
-      {loading ? (
-        <Skel w={280} h={42} className="mt-3" />
-      ) : (
-        <div className="font-mono text-3xl sm:text-4xl mt-2">$40,902.78</div>
-      )}
+      <div className="font-mono text-3xl sm:text-4xl mt-2">$40,902.78</div>
 
       <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        {loading
-          ? Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="border border-neutral-200 p-5">
-                <Skel w={28} h={20} />
-                <Skel w={50} h={12} className="mt-4" />
-                <Skel w={140} h={26} className="mt-3" />
-              </div>
-            ))
-          : (
-            <>
-              <BalanceCard flag="🇳🇬" code="NGN" whole="₦220,000" decimal=".50" />
-              <BalanceCard flag="🇨🇦" code="CAD" whole="$239,092" decimal=".29" />
-              <BalanceCard flag="🇳🇬" code="EUR" whole="₦220,000" decimal=".50" />
-              <BalanceCard flag="🇺🇸" code="USD" whole="£195,000" decimal=".75" />
-            </>
-          )}
+        <BalanceCard flag="🇳🇬" code="NGN" whole="₦220,000" decimal=".50" />
+        <BalanceCard flag="🇨🇦" code="CAD" whole="$239,092" decimal=".29" />
+        <BalanceCard flag="🇳🇬" code="EUR" whole="₦220,000" decimal=".50" />
+        <BalanceCard flag="🇺🇸" code="USD" whole="£195,000" decimal=".75" />
       </div>
 
       <div className="mt-10 lg:mt-12 flex items-center justify-between">
@@ -67,19 +38,9 @@ export default function HomePage() {
       </div>
 
       <div className="mt-4">
-        {loading
-          ? Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="flex items-center px-2 py-4 border-b border-neutral-100">
-                <Skel w={18} h={18} className="rounded-full" />
-                <div className="flex-1 ml-4">
-                  <Skel w={120} h={12} />
-                  <Skel w={220} h={10} className="mt-2" />
-                </div>
-              </div>
-            ))
-          : TXN_HISTORY.map((t) => (
-              <TxnRow key={t.id} txn={t} onClick={() => setActiveTxn(t)} />
-            ))}
+        {TXN_HISTORY.map((t) => (
+          <TxnRow key={t.id} txn={t} onClick={() => setActiveTxn(t)} />
+        ))}
       </div>
     </div>
   );

@@ -2,12 +2,17 @@
 
 import { TXN_HISTORY } from "@/lib/mockData";
 import { useUser } from "@/lib/UserContext";
+import { useSkeletonLoad } from "@/lib/useSkeletonLoad";
 import KPI from "@/components/dashboard/KPI";
 import TxnRow from "@/components/dashboard/TxnRow";
 import RevenueChart from "@/components/dashboard/RevenueChart";
+import { TransactionsSkeleton } from "@/components/dashboard/PageSkeletons";
 
 export default function TransactionsPage() {
   const { setActiveTxn } = useUser();
+  const loading = useSkeletonLoad();
+
+  if (loading) return <TransactionsSkeleton />;
 
   return (
     <div className="px-4 sm:px-6 lg:px-10 py-6 lg:py-8 w-full">
